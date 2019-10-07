@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payment.dao.SysGlQxMapper">
+  <resultMap id="BaseResultMap" type="com.payment.model.SysGlQx">
+    <id column="GL_ID" jdbcType="VARCHAR" property="glId" />
+    <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId" />
+    <result column="FX_QX" jdbcType="INTEGER" property="fxQx" />
+    <result column="FW_QX" jdbcType="INTEGER" property="fwQx" />
+    <result column="QX1" jdbcType="INTEGER" property="qx1" />
+    <result column="QX2" jdbcType="INTEGER" property="qx2" />
+    <result column="QX3" jdbcType="INTEGER" property="qx3" />
+    <result column="QX4" jdbcType="INTEGER" property="qx4" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    GL_ID, ROLE_ID, FX_QX, FW_QX, QX1, QX2, QX3, QX4
+  </sql>
+  <select id="selectByExample" parameterType="com.payment.model.SysGlQxExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_gl_qx
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_gl_qx
+    where GL_ID = #{glId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_gl_qx
+    where GL_ID = #{glId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.payment.model.SysGlQxExample">
+    delete from sys_gl_qx
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payment.model.SysGlQx">
+    insert into sys_gl_qx (GL_ID, ROLE_ID, FX_QX, 
+      FW_QX, QX1, QX2, QX3, 
+      QX4)
+    values (#{glId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{fxQx,jdbcType=INTEGER}, 
+      #{fwQx,jdbcType=INTEGER}, #{qx1,jdbcType=INTEGER}, #{qx2,jdbcType=INTEGER}, #{qx3,jdbcType=INTEGER}, 
+      #{qx4,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.payment.model.SysGlQx">
+    insert into sys_gl_qx
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="glId != null">
+        GL_ID,
+      </if>
+      <if test="roleId != null">
+        ROLE_ID,
+      </if>
+      <if test="fxQx != null">
+        FX_QX,
+      </if>
+      <if test="fwQx != null">
+        FW_QX,
+      </if>
+      <if test="qx1 != null">
+        QX1,
+      </if>
+      <if test="qx2 != null">
+        QX2,
+      </if>
+      <if test="qx3 != null">
+        QX3,
+      </if>
+      <if test="qx4 != null">
+        QX4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="glId != null">
+        #{glId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="fxQx != null">
+        #{fxQx,jdbcType=INTEGER},
+      </if>
+      <if test="fwQx != null">
+        #{fwQx,jdbcType=INTEGER},
+      </if>
+      <if test="qx1 != null">
+        #{qx1,jdbcType=INTEGER},
+      </if>
+      <if test="qx2 != null">
+        #{qx2,jdbcType=INTEGER},
+      </if>
+      <if test="qx3 != null">
+        #{qx3,jdbcType=INTEGER},
+      </if>
+      <if test="qx4 != null">
+        #{qx4,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payment.model.SysGlQxExample" resultType="java.lang.Long">
+    select count(*) from sys_gl_qx
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_gl_qx
+    <set>
+      <if test="record.glId != null">
+        GL_ID = #{record.glId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleId != null">
+        ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fxQx != null">
+        FX_QX = #{record.fxQx,jdbcType=INTEGER},
+      </if>
+      <if test="record.fwQx != null">
+        FW_QX = #{record.fwQx,jdbcType=INTEGER},
+      </if>
+      <if test="record.qx1 != null">
+        QX1 = #{record.qx1,jdbcType=INTEGER},
+      </if>
+      <if test="record.qx2 != null">
+        QX2 = #{record.qx2,jdbcType=INTEGER},
+      </if>
+      <if test="record.qx3 != null">
+        QX3 = #{record.qx3,jdbcType=INTEGER},
+      </if>
+      <if test="record.qx4 != null">
+        QX4 = #{record.qx4,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_gl_qx
+    set GL_ID = #{record.glId,jdbcType=VARCHAR},
+      ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
+      FX_QX = #{record.fxQx,jdbcType=INTEGER},
+      FW_QX = #{record.fwQx,jdbcType=INTEGER},
+      QX1 = #{record.qx1,jdbcType=INTEGER},
+      QX2 = #{record.qx2,jdbcType=INTEGER},
+      QX3 = #{record.qx3,jdbcType=INTEGER},
+      QX4 = #{record.qx4,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.payment.model.SysGlQx">
+    update sys_gl_qx
+    <set>
+      <if test="roleId != null">
+        ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="fxQx != null">
+        FX_QX = #{fxQx,jdbcType=INTEGER},
+      </if>
+      <if test="fwQx != null">
+        FW_QX = #{fwQx,jdbcType=INTEGER},
+      </if>
+      <if test="qx1 != null">
+        QX1 = #{qx1,jdbcType=INTEGER},
+      </if>
+      <if test="qx2 != null">
+        QX2 = #{qx2,jdbcType=INTEGER},
+      </if>
+      <if test="qx3 != null">
+        QX3 = #{qx3,jdbcType=INTEGER},
+      </if>
+      <if test="qx4 != null">
+        QX4 = #{qx4,jdbcType=INTEGER},
+      </if>
+    </set>
+    where GL_ID = #{glId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.payment.model.SysGlQx">
+    update sys_gl_qx
+    set ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      FX_QX = #{fxQx,jdbcType=INTEGER},
+      FW_QX = #{fwQx,jdbcType=INTEGER},
+      QX1 = #{qx1,jdbcType=INTEGER},
+      QX2 = #{qx2,jdbcType=INTEGER},
+      QX3 = #{qx3,jdbcType=INTEGER},
+      QX4 = #{qx4,jdbcType=INTEGER}
+    where GL_ID = #{glId,jdbcType=VARCHAR}
+  </update>
+</mapper>

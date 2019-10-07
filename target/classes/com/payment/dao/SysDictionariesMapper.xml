@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payment.dao.SysDictionariesMapper">
+  <resultMap id="BaseResultMap" type="com.payment.model.SysDictionaries">
+    <id column="ZD_ID" jdbcType="VARCHAR" property="zdId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="BIANMA" jdbcType="VARCHAR" property="bianma" />
+    <result column="ORDY_BY" jdbcType="INTEGER" property="ordyBy" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="JB" jdbcType="INTEGER" property="jb" />
+    <result column="P_BM" jdbcType="VARCHAR" property="pBm" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ZD_ID, NAME, BIANMA, ORDY_BY, PARENT_ID, JB, P_BM
+  </sql>
+  <select id="selectByExample" parameterType="com.payment.model.SysDictionariesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_dictionaries
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_dictionaries
+    where ZD_ID = #{zdId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_dictionaries
+    where ZD_ID = #{zdId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.payment.model.SysDictionariesExample">
+    delete from sys_dictionaries
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payment.model.SysDictionaries">
+    insert into sys_dictionaries (ZD_ID, NAME, BIANMA, 
+      ORDY_BY, PARENT_ID, JB, 
+      P_BM)
+    values (#{zdId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{bianma,jdbcType=VARCHAR}, 
+      #{ordyBy,jdbcType=INTEGER}, #{parentId,jdbcType=VARCHAR}, #{jb,jdbcType=INTEGER}, 
+      #{pBm,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.payment.model.SysDictionaries">
+    insert into sys_dictionaries
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="zdId != null">
+        ZD_ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="bianma != null">
+        BIANMA,
+      </if>
+      <if test="ordyBy != null">
+        ORDY_BY,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="jb != null">
+        JB,
+      </if>
+      <if test="pBm != null">
+        P_BM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="zdId != null">
+        #{zdId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="bianma != null">
+        #{bianma,jdbcType=VARCHAR},
+      </if>
+      <if test="ordyBy != null">
+        #{ordyBy,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="jb != null">
+        #{jb,jdbcType=INTEGER},
+      </if>
+      <if test="pBm != null">
+        #{pBm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payment.model.SysDictionariesExample" resultType="java.lang.Long">
+    select count(*) from sys_dictionaries
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_dictionaries
+    <set>
+      <if test="record.zdId != null">
+        ZD_ID = #{record.zdId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bianma != null">
+        BIANMA = #{record.bianma,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordyBy != null">
+        ORDY_BY = #{record.ordyBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null">
+        PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jb != null">
+        JB = #{record.jb,jdbcType=INTEGER},
+      </if>
+      <if test="record.pBm != null">
+        P_BM = #{record.pBm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_dictionaries
+    set ZD_ID = #{record.zdId,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      BIANMA = #{record.bianma,jdbcType=VARCHAR},
+      ORDY_BY = #{record.ordyBy,jdbcType=INTEGER},
+      PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      JB = #{record.jb,jdbcType=INTEGER},
+      P_BM = #{record.pBm,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.payment.model.SysDictionaries">
+    update sys_dictionaries
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="bianma != null">
+        BIANMA = #{bianma,jdbcType=VARCHAR},
+      </if>
+      <if test="ordyBy != null">
+        ORDY_BY = #{ordyBy,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="jb != null">
+        JB = #{jb,jdbcType=INTEGER},
+      </if>
+      <if test="pBm != null">
+        P_BM = #{pBm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ZD_ID = #{zdId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.payment.model.SysDictionaries">
+    update sys_dictionaries
+    set NAME = #{name,jdbcType=VARCHAR},
+      BIANMA = #{bianma,jdbcType=VARCHAR},
+      ORDY_BY = #{ordyBy,jdbcType=INTEGER},
+      PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      JB = #{jb,jdbcType=INTEGER},
+      P_BM = #{pBm,jdbcType=VARCHAR}
+    where ZD_ID = #{zdId,jdbcType=VARCHAR}
+  </update>
+</mapper>

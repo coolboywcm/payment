@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payment.dao.PyActiveCardMapper">
+  <resultMap id="BaseResultMap" type="com.payment.model.PyActiveCard">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="BATCH_ID" jdbcType="VARCHAR" property="batchId" />
+    <result column="ACTIVE_ID" jdbcType="VARCHAR" property="activeId" />
+    <result column="CARD_NO" jdbcType="VARCHAR" property="cardNo" />
+    <result column="INDENTIFY_TYPE" jdbcType="VARCHAR" property="indentifyType" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="CREATE_USER_ID" jdbcType="VARCHAR" property="createUserId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, BATCH_ID, ACTIVE_ID, CARD_NO, INDENTIFY_TYPE, STATE, CREATE_TIME, CREATE_USER_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.payment.model.PyActiveCardExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from py_active_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from py_active_card
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from py_active_card
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.payment.model.PyActiveCardExample">
+    delete from py_active_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payment.model.PyActiveCard">
+    insert into py_active_card (ID, BATCH_ID, ACTIVE_ID, 
+      CARD_NO, INDENTIFY_TYPE, STATE, 
+      CREATE_TIME, CREATE_USER_ID)
+    values (#{id,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, #{activeId,jdbcType=VARCHAR}, 
+      #{cardNo,jdbcType=VARCHAR}, #{indentifyType,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.payment.model.PyActiveCard">
+    insert into py_active_card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="batchId != null">
+        BATCH_ID,
+      </if>
+      <if test="activeId != null">
+        ACTIVE_ID,
+      </if>
+      <if test="cardNo != null">
+        CARD_NO,
+      </if>
+      <if test="indentifyType != null">
+        INDENTIFY_TYPE,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="createUserId != null">
+        CREATE_USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null">
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="activeId != null">
+        #{activeId,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null">
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="indentifyType != null">
+        #{indentifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payment.model.PyActiveCardExample" resultType="java.lang.Long">
+    select count(*) from py_active_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update py_active_card
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchId != null">
+        BATCH_ID = #{record.batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activeId != null">
+        ACTIVE_ID = #{record.activeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardNo != null">
+        CARD_NO = #{record.cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.indentifyType != null">
+        INDENTIFY_TYPE = #{record.indentifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUserId != null">
+        CREATE_USER_ID = #{record.createUserId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update py_active_card
+    set ID = #{record.id,jdbcType=VARCHAR},
+      BATCH_ID = #{record.batchId,jdbcType=VARCHAR},
+      ACTIVE_ID = #{record.activeId,jdbcType=VARCHAR},
+      CARD_NO = #{record.cardNo,jdbcType=VARCHAR},
+      INDENTIFY_TYPE = #{record.indentifyType,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{record.createUserId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.payment.model.PyActiveCard">
+    update py_active_card
+    <set>
+      <if test="batchId != null">
+        BATCH_ID = #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="activeId != null">
+        ACTIVE_ID = #{activeId,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null">
+        CARD_NO = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="indentifyType != null">
+        INDENTIFY_TYPE = #{indentifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.payment.model.PyActiveCard">
+    update py_active_card
+    set BATCH_ID = #{batchId,jdbcType=VARCHAR},
+      ACTIVE_ID = #{activeId,jdbcType=VARCHAR},
+      CARD_NO = #{cardNo,jdbcType=VARCHAR},
+      INDENTIFY_TYPE = #{indentifyType,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

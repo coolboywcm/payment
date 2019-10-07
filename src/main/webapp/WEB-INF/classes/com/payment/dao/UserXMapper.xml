@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payment.dao.UserXMapper">
+	
+	
+	<!-- 新增用户 -->
+	<insert id="saveU" parameterType="pd" flushCache="false">
+		insert into sys_user (
+			USER_ID,
+			USERNAME,
+			PASSWORD,
+			NAME,
+			RIGHTS,
+			ROLE_ID,
+			LAST_LOGIN,
+			IP,
+			STATUS,
+			BZ,
+			SKIN,
+			EMAIL,
+			NUMBER,
+			PHONE
+		) values (
+			#{USER_ID},
+			#{USERNAME},
+			#{PASSWORD},
+			#{NAME},
+			#{RIGHTS},
+			#{ROLE_ID},
+			#{LAST_LOGIN},
+			#{IP},
+			#{STATUS},
+			#{BZ},
+			#{SKIN},
+			#{EMAIL},
+			#{NUMBER},
+			#{PHONE}
+		)
+	</insert>
+
+	<!-- 批量删除用户 -->
+	<delete id="deleteAllU" parameterType="String" flushCache="false">
+		delete from sys_user
+		where 
+			USER_ID in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+	
+		<!-- 通过user_id获取数据 -->
+	<select id="findByUiId" parameterType="pd" resultType="pd" useCache="false">
+		select 
+			USER_ID,
+			USERNAME,
+			PASSWORD,
+			NAME,
+			RIGHTS,
+			ROLE_ID,
+			LAST_LOGIN,
+			IP,
+			STATUS,
+			BZ,
+			SKIN,
+			EMAIL,
+			NUMBER,
+			PHONE,
+			ORG_ID
+		from 
+			sys_user
+		where 
+			USER_ID = #{userId}
+	</select>
+	
+		<!-- 修改 -->
+	<update id="editU" parameterType="pd" flushCache="false">
+		update  sys_user
+			set USERNAME				= #{USERNAME},
+				NAME 					= #{NAME},
+				<if test="ROLE_ID != null and ROLE_ID != ''">
+				ROLE_ID 				= #{ROLE_ID},
+				</if>
+				BZ						= #{BZ},
+				EMAIL					= #{EMAIL},
+				NUMBER					= #{NUMBER},
+				PHONE					= #{PHONE}
+				<if test="orgId != null and orgId != ''">
+				,ORG_ID					= #{orgId}
+				</if>
+				<if test="SHOP_ID != null and SHOP_ID != ''">
+				,SHOP_ID					= #{SHOP_ID}
+				</if>
+			<if test="PASSWORD != null and PASSWORD != ''">
+				,PASSWORD				= #{PASSWORD}
+			</if>
+			where 
+				USER_ID = #{USER_ID}
+	</update>
+</mapper>

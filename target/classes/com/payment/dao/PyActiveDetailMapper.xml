@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payment.dao.PyActiveDetailMapper">
+  <resultMap id="BaseResultMap" type="com.payment.model.PyActiveDetail">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="ACTIVE_ID" jdbcType="VARCHAR" property="activeId" />
+    <result column="DBJE" jdbcType="DECIMAL" property="dbje" />
+    <result column="SJYHZXZ" jdbcType="DECIMAL" property="sjyhzxz" />
+    <result column="SJYHZDDZ" jdbcType="DECIMAL" property="sjyhzddz" />
+    <result column="LJJE" jdbcType="DECIMAL" property="ljje" />
+    <result column="DCXFZDGMS" jdbcType="INTEGER" property="dcxfzdgms" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="YHQDJE" jdbcType="DECIMAL" property="yhqdje" />
+    <result column="YHFDJE" jdbcType="DECIMAL" property="yhfdje" />
+    <result column="YHZK" jdbcType="DECIMAL" property="yhzk" />
+    <result column="HDYJ" jdbcType="DECIMAL" property="hdyj" />
+    <result column="YHJE" jdbcType="DECIMAL" property="yhje" />
+    <result column="DCXFZDGMFS" jdbcType="DECIMAL" property="dcxfzdgmfs" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="DETAIL_DESC" jdbcType="VARCHAR" property="detailDesc" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="CREATE_USER_ID" jdbcType="VARCHAR" property="createUserId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, ACTIVE_ID, DBJE, SJYHZXZ, SJYHZDDZ, LJJE, DCXFZDGMS, TITLE, YHQDJE, YHFDJE, YHZK, 
+    HDYJ, YHJE, DCXFZDGMFS, STATE, DETAIL_DESC, CREATE_TIME, CREATE_USER_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.payment.model.PyActiveDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from py_active_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from py_active_detail
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from py_active_detail
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.payment.model.PyActiveDetailExample">
+    delete from py_active_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payment.model.PyActiveDetail">
+    insert into py_active_detail (ID, ACTIVE_ID, DBJE, 
+      SJYHZXZ, SJYHZDDZ, LJJE, 
+      DCXFZDGMS, TITLE, YHQDJE, 
+      YHFDJE, YHZK, HDYJ, 
+      YHJE, DCXFZDGMFS, STATE, 
+      DETAIL_DESC, CREATE_TIME, CREATE_USER_ID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{activeId,jdbcType=VARCHAR}, #{dbje,jdbcType=DECIMAL}, 
+      #{sjyhzxz,jdbcType=DECIMAL}, #{sjyhzddz,jdbcType=DECIMAL}, #{ljje,jdbcType=DECIMAL}, 
+      #{dcxfzdgms,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{yhqdje,jdbcType=DECIMAL}, 
+      #{yhfdje,jdbcType=DECIMAL}, #{yhzk,jdbcType=DECIMAL}, #{hdyj,jdbcType=DECIMAL}, 
+      #{yhje,jdbcType=DECIMAL}, #{dcxfzdgmfs,jdbcType=DECIMAL}, #{state,jdbcType=VARCHAR}, 
+      #{detailDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.payment.model.PyActiveDetail">
+    insert into py_active_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="activeId != null">
+        ACTIVE_ID,
+      </if>
+      <if test="dbje != null">
+        DBJE,
+      </if>
+      <if test="sjyhzxz != null">
+        SJYHZXZ,
+      </if>
+      <if test="sjyhzddz != null">
+        SJYHZDDZ,
+      </if>
+      <if test="ljje != null">
+        LJJE,
+      </if>
+      <if test="dcxfzdgms != null">
+        DCXFZDGMS,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="yhqdje != null">
+        YHQDJE,
+      </if>
+      <if test="yhfdje != null">
+        YHFDJE,
+      </if>
+      <if test="yhzk != null">
+        YHZK,
+      </if>
+      <if test="hdyj != null">
+        HDYJ,
+      </if>
+      <if test="yhje != null">
+        YHJE,
+      </if>
+      <if test="dcxfzdgmfs != null">
+        DCXFZDGMFS,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="detailDesc != null">
+        DETAIL_DESC,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="createUserId != null">
+        CREATE_USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="activeId != null">
+        #{activeId,jdbcType=VARCHAR},
+      </if>
+      <if test="dbje != null">
+        #{dbje,jdbcType=DECIMAL},
+      </if>
+      <if test="sjyhzxz != null">
+        #{sjyhzxz,jdbcType=DECIMAL},
+      </if>
+      <if test="sjyhzddz != null">
+        #{sjyhzddz,jdbcType=DECIMAL},
+      </if>
+      <if test="ljje != null">
+        #{ljje,jdbcType=DECIMAL},
+      </if>
+      <if test="dcxfzdgms != null">
+        #{dcxfzdgms,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="yhqdje != null">
+        #{yhqdje,jdbcType=DECIMAL},
+      </if>
+      <if test="yhfdje != null">
+        #{yhfdje,jdbcType=DECIMAL},
+      </if>
+      <if test="yhzk != null">
+        #{yhzk,jdbcType=DECIMAL},
+      </if>
+      <if test="hdyj != null">
+        #{hdyj,jdbcType=DECIMAL},
+      </if>
+      <if test="yhje != null">
+        #{yhje,jdbcType=DECIMAL},
+      </if>
+      <if test="dcxfzdgmfs != null">
+        #{dcxfzdgmfs,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="detailDesc != null">
+        #{detailDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payment.model.PyActiveDetailExample" resultType="java.lang.Long">
+    select count(*) from py_active_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update py_active_detail
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activeId != null">
+        ACTIVE_ID = #{record.activeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbje != null">
+        DBJE = #{record.dbje,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sjyhzxz != null">
+        SJYHZXZ = #{record.sjyhzxz,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sjyhzddz != null">
+        SJYHZDDZ = #{record.sjyhzddz,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ljje != null">
+        LJJE = #{record.ljje,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dcxfzdgms != null">
+        DCXFZDGMS = #{record.dcxfzdgms,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        TITLE = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yhqdje != null">
+        YHQDJE = #{record.yhqdje,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yhfdje != null">
+        YHFDJE = #{record.yhfdje,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yhzk != null">
+        YHZK = #{record.yhzk,jdbcType=DECIMAL},
+      </if>
+      <if test="record.hdyj != null">
+        HDYJ = #{record.hdyj,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yhje != null">
+        YHJE = #{record.yhje,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dcxfzdgmfs != null">
+        DCXFZDGMFS = #{record.dcxfzdgmfs,jdbcType=DECIMAL},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailDesc != null">
+        DETAIL_DESC = #{record.detailDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUserId != null">
+        CREATE_USER_ID = #{record.createUserId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update py_active_detail
+    set ID = #{record.id,jdbcType=VARCHAR},
+      ACTIVE_ID = #{record.activeId,jdbcType=VARCHAR},
+      DBJE = #{record.dbje,jdbcType=DECIMAL},
+      SJYHZXZ = #{record.sjyhzxz,jdbcType=DECIMAL},
+      SJYHZDDZ = #{record.sjyhzddz,jdbcType=DECIMAL},
+      LJJE = #{record.ljje,jdbcType=DECIMAL},
+      DCXFZDGMS = #{record.dcxfzdgms,jdbcType=INTEGER},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      YHQDJE = #{record.yhqdje,jdbcType=DECIMAL},
+      YHFDJE = #{record.yhfdje,jdbcType=DECIMAL},
+      YHZK = #{record.yhzk,jdbcType=DECIMAL},
+      HDYJ = #{record.hdyj,jdbcType=DECIMAL},
+      YHJE = #{record.yhje,jdbcType=DECIMAL},
+      DCXFZDGMFS = #{record.dcxfzdgmfs,jdbcType=DECIMAL},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      DETAIL_DESC = #{record.detailDesc,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{record.createUserId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.payment.model.PyActiveDetail">
+    update py_active_detail
+    <set>
+      <if test="activeId != null">
+        ACTIVE_ID = #{activeId,jdbcType=VARCHAR},
+      </if>
+      <if test="dbje != null">
+        DBJE = #{dbje,jdbcType=DECIMAL},
+      </if>
+      <if test="sjyhzxz != null">
+        SJYHZXZ = #{sjyhzxz,jdbcType=DECIMAL},
+      </if>
+      <if test="sjyhzddz != null">
+        SJYHZDDZ = #{sjyhzddz,jdbcType=DECIMAL},
+      </if>
+      <if test="ljje != null">
+        LJJE = #{ljje,jdbcType=DECIMAL},
+      </if>
+      <if test="dcxfzdgms != null">
+        DCXFZDGMS = #{dcxfzdgms,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="yhqdje != null">
+        YHQDJE = #{yhqdje,jdbcType=DECIMAL},
+      </if>
+      <if test="yhfdje != null">
+        YHFDJE = #{yhfdje,jdbcType=DECIMAL},
+      </if>
+      <if test="yhzk != null">
+        YHZK = #{yhzk,jdbcType=DECIMAL},
+      </if>
+      <if test="hdyj != null">
+        HDYJ = #{hdyj,jdbcType=DECIMAL},
+      </if>
+      <if test="yhje != null">
+        YHJE = #{yhje,jdbcType=DECIMAL},
+      </if>
+      <if test="dcxfzdgmfs != null">
+        DCXFZDGMFS = #{dcxfzdgmfs,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="detailDesc != null">
+        DETAIL_DESC = #{detailDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.payment.model.PyActiveDetail">
+    update py_active_detail
+    set ACTIVE_ID = #{activeId,jdbcType=VARCHAR},
+      DBJE = #{dbje,jdbcType=DECIMAL},
+      SJYHZXZ = #{sjyhzxz,jdbcType=DECIMAL},
+      SJYHZDDZ = #{sjyhzddz,jdbcType=DECIMAL},
+      LJJE = #{ljje,jdbcType=DECIMAL},
+      DCXFZDGMS = #{dcxfzdgms,jdbcType=INTEGER},
+      TITLE = #{title,jdbcType=VARCHAR},
+      YHQDJE = #{yhqdje,jdbcType=DECIMAL},
+      YHFDJE = #{yhfdje,jdbcType=DECIMAL},
+      YHZK = #{yhzk,jdbcType=DECIMAL},
+      HDYJ = #{hdyj,jdbcType=DECIMAL},
+      YHJE = #{yhje,jdbcType=DECIMAL},
+      DCXFZDGMFS = #{dcxfzdgmfs,jdbcType=DECIMAL},
+      STATE = #{state,jdbcType=VARCHAR},
+      DETAIL_DESC = #{detailDesc,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

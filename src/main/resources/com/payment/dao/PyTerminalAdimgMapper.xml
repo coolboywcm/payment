@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payment.dao.PyTerminalAdimgMapper">
+  <resultMap id="BaseResultMap" type="com.payment.model.PyTerminalAdimg">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="ADIMG_ID" jdbcType="VARCHAR" property="adimgId" />
+    <result column="TERMINAL_ID" jdbcType="VARCHAR" property="terminalId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, ADIMG_ID, TERMINAL_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.payment.model.PyTerminalAdimgExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from py_terminal_adimg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from py_terminal_adimg
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from py_terminal_adimg
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.payment.model.PyTerminalAdimgExample">
+    delete from py_terminal_adimg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payment.model.PyTerminalAdimg">
+    insert into py_terminal_adimg (ID, ADIMG_ID, TERMINAL_ID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{adimgId,jdbcType=VARCHAR}, #{terminalId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.payment.model.PyTerminalAdimg">
+    insert into py_terminal_adimg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="adimgId != null">
+        ADIMG_ID,
+      </if>
+      <if test="terminalId != null">
+        TERMINAL_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="adimgId != null">
+        #{adimgId,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalId != null">
+        #{terminalId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payment.model.PyTerminalAdimgExample" resultType="java.lang.Long">
+    select count(*) from py_terminal_adimg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update py_terminal_adimg
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adimgId != null">
+        ADIMG_ID = #{record.adimgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalId != null">
+        TERMINAL_ID = #{record.terminalId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update py_terminal_adimg
+    set ID = #{record.id,jdbcType=VARCHAR},
+      ADIMG_ID = #{record.adimgId,jdbcType=VARCHAR},
+      TERMINAL_ID = #{record.terminalId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.payment.model.PyTerminalAdimg">
+    update py_terminal_adimg
+    <set>
+      <if test="adimgId != null">
+        ADIMG_ID = #{adimgId,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalId != null">
+        TERMINAL_ID = #{terminalId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.payment.model.PyTerminalAdimg">
+    update py_terminal_adimg
+    set ADIMG_ID = #{adimgId,jdbcType=VARCHAR},
+      TERMINAL_ID = #{terminalId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+	PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+	"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 数据库驱动 -->
+	<!-- -->
+	<classPathEntry location="./mysql-connector-java-5.1.34.jar"/>
+
+	<!--<classPathEntry 
+		location="/home/eclipse/.m2/repository/com/oracle/ojdbc14/10.2.0.3/ojdbc14-10.2.0.3.jar"/>-->
+	<context id="t" targetRuntime="MyBatis3">
+
+		<property name="ignoreQualifiersAtRuntime" value="true"/>
+		<property name="DBType" value="mysql"/>
+
+		<commentGenerator>
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+
+		<!-- 数据库配置 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/pymysql?useUnicode=true&amp;characterEncoding=utf-8"
+			userId="root" password="root">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false"/>
+		</javaTypeResolver>
+
+		<!--  model配置 -->
+		<javaModelGenerator targetPackage="com.payment.model"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true"/>
+			<property name="trimStrings" value="true"/>
+		</javaModelGenerator>
+
+		<!-- dao配置 -->
+		<sqlMapGenerator targetPackage="com.payment.dao"
+			targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true"/>
+		</sqlMapGenerator>
+
+		<!--<javaClientGenerator type="XMLMAPPER"-->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.payment.dao"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true"/>
+		</javaClientGenerator>
+	  <table tableName="PY_TERMINAL_ADIMG" schema="">
+			<property name="ignoreQualifiersAtRuntime" value="true"/>
+		</table>
+		<!-- <table tableName="sys_app_user" schema="">
+			<property name="ignoreQualifiersAtRuntime" value="true"/>
+		</table>
+		<table tableName="sys_dictionaries" schema="">
+			<property name="ignoreQualifiersAtRuntime" value="true"/>
+		</table>
+		<table tableName="sys_gl_qx" schema="">
+			<property name="ignoreQualifiersAtRuntime" value="true"/>
+		</table>
+		<table tableName="sys_menu" schema="">
+			<property name="ignoreQualifiersAtRuntime" value="true"/>
+		</table>
+		<table tableName="sys_role" schema="">
+			<property name="ignoreQualifiersAtRuntime" value="true"/>
+		</table>
+		<table tableName="sys_user" schema="">
+			<property name="ignoreQualifiersAtRuntime" value="true"/>
+		</table>
+		<table tableName="sys_user_qx" schema="">
+			<property name="ignoreQualifiersAtRuntime" value="true"/>
+		</table> -->
+		<!-- <table tableName="VS_STUDENT_FAMILY_STATUS" schema="">
+			<property name="ignoreQualifiersAtRuntime" value="true"/>
+		</table>
+		<table tableName="VS_HEALTH_STATUS" schema="">
+			<property name="ignoreQualifiersAtRuntime" value="true"/>
+		</table> -->
+	</context>
+</generatorConfiguration>

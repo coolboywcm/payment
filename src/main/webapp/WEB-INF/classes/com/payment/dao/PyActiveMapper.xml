@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payment.dao.PyActiveMapper">
+  <resultMap id="BaseResultMap" type="com.payment.model.PyActive">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="ORG_ID" jdbcType="VARCHAR" property="orgId" />
+    <result column="SHOP_ID" jdbcType="VARCHAR" property="shopId" />
+    <result column="BONUS_ID" jdbcType="VARCHAR" property="bonusId" />
+    <result column="BONUS_LIMIT" jdbcType="DECIMAL" property="bonusLimit" />
+    <result column="BONUS_TYPE" jdbcType="VARCHAR" property="bonusType" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="AD_INFO" jdbcType="VARCHAR" property="adInfo" />
+    <result column="YHZCS" jdbcType="INTEGER" property="yhzcs" />
+    <result column="DRZDCS" jdbcType="INTEGER" property="drzdcs" />
+    <result column="HDYJ" jdbcType="DECIMAL" property="hdyj" />
+    <result column="YHDJ" jdbcType="DECIMAL" property="yhdj" />
+    <result column="DKKCYCS" jdbcType="INTEGER" property="dkkcycs" />
+    <result column="ZDXFJE" jdbcType="DECIMAL" property="zdxfje" />
+    <result column="ZK" jdbcType="DECIMAL" property="zk" />
+    <result column="DBYHJE" jdbcType="DECIMAL" property="dbyhje" />
+    <result column="DKZGYHJE" jdbcType="DECIMAL" property="dkzgyhje" />
+    <result column="LJJE" jdbcType="DECIMAL" property="ljje" />
+    <result column="DKHJYHXE" jdbcType="DECIMAL" property="dkhjyhxe" />
+    <result column="DBZDYH" jdbcType="DECIMAL" property="dbzdyh" />
+    <result column="DBZGYH" jdbcType="DECIMAL" property="dbzgyh" />
+    <result column="BEGIN_DATE" jdbcType="VARCHAR" property="beginDate" />
+    <result column="END_DATE" jdbcType="VARCHAR" property="endDate" />
+    <result column="WEEK" jdbcType="VARCHAR" property="week" />
+    <result column="BEGIN_TIME" jdbcType="VARCHAR" property="beginTime" />
+    <result column="END_TIME" jdbcType="VARCHAR" property="endTime" />
+    <result column="CARD_IDENTIFY_TYPE" jdbcType="VARCHAR" property="cardIdentifyType" />
+    <result column="CARD_ADD_TYPE" jdbcType="VARCHAR" property="cardAddType" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="CREATE_USER_ID" jdbcType="VARCHAR" property="createUserId" />
+    <result column="HDZJE" jdbcType="DECIMAL" property="hdzje" />
+    <result column="MRZGHDJE" jdbcType="DECIMAL" property="mrzghdje" />
+    <result column="USED_TOTAL" jdbcType="DECIMAL" property="usedTotal" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.payment.model.PyActiveWithBLOBs">
+    <result column="CARD_NO" jdbcType="LONGVARCHAR" property="cardNo" />
+    <result column="CARD_BIN" jdbcType="LONGVARCHAR" property="cardBin" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, ORG_ID, SHOP_ID, BONUS_ID, BONUS_LIMIT, BONUS_TYPE, NAME, AD_INFO, YHZCS, DRZDCS, 
+    HDYJ, YHDJ, DKKCYCS, ZDXFJE, ZK, DBYHJE, DKZGYHJE, LJJE, DKHJYHXE, DBZDYH, DBZGYH, 
+    BEGIN_DATE, END_DATE, WEEK, BEGIN_TIME, END_TIME, CARD_IDENTIFY_TYPE, CARD_ADD_TYPE, 
+    TYPE, STATE, CREATE_TIME, CREATE_USER_ID, HDZJE, MRZGHDJE, USED_TOTAL
+  </sql>
+  <sql id="Blob_Column_List">
+    CARD_NO, CARD_BIN
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.payment.model.PyActiveExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from py_active
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.payment.model.PyActiveExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from py_active
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from py_active
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from py_active
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.payment.model.PyActiveExample">
+    delete from py_active
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payment.model.PyActiveWithBLOBs">
+    insert into py_active (ID, ORG_ID, SHOP_ID, 
+      BONUS_ID, BONUS_LIMIT, BONUS_TYPE, 
+      NAME, AD_INFO, YHZCS, 
+      DRZDCS, HDYJ, YHDJ, 
+      DKKCYCS, ZDXFJE, ZK, 
+      DBYHJE, DKZGYHJE, LJJE, 
+      DKHJYHXE, DBZDYH, DBZGYH, 
+      BEGIN_DATE, END_DATE, WEEK, 
+      BEGIN_TIME, END_TIME, CARD_IDENTIFY_TYPE, 
+      CARD_ADD_TYPE, TYPE, STATE, 
+      CREATE_TIME, CREATE_USER_ID, HDZJE, 
+      MRZGHDJE, USED_TOTAL, CARD_NO, 
+      CARD_BIN)
+    values (#{id,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, 
+      #{bonusId,jdbcType=VARCHAR}, #{bonusLimit,jdbcType=DECIMAL}, #{bonusType,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{adInfo,jdbcType=VARCHAR}, #{yhzcs,jdbcType=INTEGER}, 
+      #{drzdcs,jdbcType=INTEGER}, #{hdyj,jdbcType=DECIMAL}, #{yhdj,jdbcType=DECIMAL}, 
+      #{dkkcycs,jdbcType=INTEGER}, #{zdxfje,jdbcType=DECIMAL}, #{zk,jdbcType=DECIMAL}, 
+      #{dbyhje,jdbcType=DECIMAL}, #{dkzgyhje,jdbcType=DECIMAL}, #{ljje,jdbcType=DECIMAL}, 
+      #{dkhjyhxe,jdbcType=DECIMAL}, #{dbzdyh,jdbcType=DECIMAL}, #{dbzgyh,jdbcType=DECIMAL}, 
+      #{beginDate,jdbcType=VARCHAR}, #{endDate,jdbcType=VARCHAR}, #{week,jdbcType=VARCHAR}, 
+      #{beginTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{cardIdentifyType,jdbcType=VARCHAR}, 
+      #{cardAddType,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR}, #{hdzje,jdbcType=DECIMAL}, 
+      #{mrzghdje,jdbcType=DECIMAL}, #{usedTotal,jdbcType=DECIMAL}, #{cardNo,jdbcType=LONGVARCHAR}, 
+      #{cardBin,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.payment.model.PyActiveWithBLOBs">
+    insert into py_active
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orgId != null">
+        ORG_ID,
+      </if>
+      <if test="shopId != null">
+        SHOP_ID,
+      </if>
+      <if test="bonusId != null">
+        BONUS_ID,
+      </if>
+      <if test="bonusLimit != null">
+        BONUS_LIMIT,
+      </if>
+      <if test="bonusType != null">
+        BONUS_TYPE,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="adInfo != null">
+        AD_INFO,
+      </if>
+      <if test="yhzcs != null">
+        YHZCS,
+      </if>
+      <if test="drzdcs != null">
+        DRZDCS,
+      </if>
+      <if test="hdyj != null">
+        HDYJ,
+      </if>
+      <if test="yhdj != null">
+        YHDJ,
+      </if>
+      <if test="dkkcycs != null">
+        DKKCYCS,
+      </if>
+      <if test="zdxfje != null">
+        ZDXFJE,
+      </if>
+      <if test="zk != null">
+        ZK,
+      </if>
+      <if test="dbyhje != null">
+        DBYHJE,
+      </if>
+      <if test="dkzgyhje != null">
+        DKZGYHJE,
+      </if>
+      <if test="ljje != null">
+        LJJE,
+      </if>
+      <if test="dkhjyhxe != null">
+        DKHJYHXE,
+      </if>
+      <if test="dbzdyh != null">
+        DBZDYH,
+      </if>
+      <if test="dbzgyh != null">
+        DBZGYH,
+      </if>
+      <if test="beginDate != null">
+        BEGIN_DATE,
+      </if>
+      <if test="endDate != null">
+        END_DATE,
+      </if>
+      <if test="week != null">
+        WEEK,
+      </if>
+      <if test="beginTime != null">
+        BEGIN_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="cardIdentifyType != null">
+        CARD_IDENTIFY_TYPE,
+      </if>
+      <if test="cardAddType != null">
+        CARD_ADD_TYPE,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="createUserId != null">
+        CREATE_USER_ID,
+      </if>
+      <if test="hdzje != null">
+        HDZJE,
+      </if>
+      <if test="mrzghdje != null">
+        MRZGHDJE,
+      </if>
+      <if test="usedTotal != null">
+        USED_TOTAL,
+      </if>
+      <if test="cardNo != null">
+        CARD_NO,
+      </if>
+      <if test="cardBin != null">
+        CARD_BIN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="bonusId != null">
+        #{bonusId,jdbcType=VARCHAR},
+      </if>
+      <if test="bonusLimit != null">
+        #{bonusLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="bonusType != null">
+        #{bonusType,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="adInfo != null">
+        #{adInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="yhzcs != null">
+        #{yhzcs,jdbcType=INTEGER},
+      </if>
+      <if test="drzdcs != null">
+        #{drzdcs,jdbcType=INTEGER},
+      </if>
+      <if test="hdyj != null">
+        #{hdyj,jdbcType=DECIMAL},
+      </if>
+      <if test="yhdj != null">
+        #{yhdj,jdbcType=DECIMAL},
+      </if>
+      <if test="dkkcycs != null">
+        #{dkkcycs,jdbcType=INTEGER},
+      </if>
+      <if test="zdxfje != null">
+        #{zdxfje,jdbcType=DECIMAL},
+      </if>
+      <if test="zk != null">
+        #{zk,jdbcType=DECIMAL},
+      </if>
+      <if test="dbyhje != null">
+        #{dbyhje,jdbcType=DECIMAL},
+      </if>
+      <if test="dkzgyhje != null">
+        #{dkzgyhje,jdbcType=DECIMAL},
+      </if>
+      <if test="ljje != null">
+        #{ljje,jdbcType=DECIMAL},
+      </if>
+      <if test="dkhjyhxe != null">
+        #{dkhjyhxe,jdbcType=DECIMAL},
+      </if>
+      <if test="dbzdyh != null">
+        #{dbzdyh,jdbcType=DECIMAL},
+      </if>
+      <if test="dbzgyh != null">
+        #{dbzgyh,jdbcType=DECIMAL},
+      </if>
+      <if test="beginDate != null">
+        #{beginDate,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=VARCHAR},
+      </if>
+      <if test="week != null">
+        #{week,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cardIdentifyType != null">
+        #{cardIdentifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="cardAddType != null">
+        #{cardAddType,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="hdzje != null">
+        #{hdzje,jdbcType=DECIMAL},
+      </if>
+      <if test="mrzghdje != null">
+        #{mrzghdje,jdbcType=DECIMAL},
+      </if>
+      <if test="usedTotal != null">
+        #{usedTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="cardNo != null">
+        #{cardNo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cardBin != null">
+        #{cardBin,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payment.model.PyActiveExample" resultType="java.lang.Long">
+    select count(*) from py_active
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update py_active
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgId != null">
+        ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopId != null">
+        SHOP_ID = #{record.shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bonusId != null">
+        BONUS_ID = #{record.bonusId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bonusLimit != null">
+        BONUS_LIMIT = #{record.bonusLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bonusType != null">
+        BONUS_TYPE = #{record.bonusType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adInfo != null">
+        AD_INFO = #{record.adInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yhzcs != null">
+        YHZCS = #{record.yhzcs,jdbcType=INTEGER},
+      </if>
+      <if test="record.drzdcs != null">
+        DRZDCS = #{record.drzdcs,jdbcType=INTEGER},
+      </if>
+      <if test="record.hdyj != null">
+        HDYJ = #{record.hdyj,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yhdj != null">
+        YHDJ = #{record.yhdj,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dkkcycs != null">
+        DKKCYCS = #{record.dkkcycs,jdbcType=INTEGER},
+      </if>
+      <if test="record.zdxfje != null">
+        ZDXFJE = #{record.zdxfje,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zk != null">
+        ZK = #{record.zk,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dbyhje != null">
+        DBYHJE = #{record.dbyhje,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dkzgyhje != null">
+        DKZGYHJE = #{record.dkzgyhje,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ljje != null">
+        LJJE = #{record.ljje,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dkhjyhxe != null">
+        DKHJYHXE = #{record.dkhjyhxe,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dbzdyh != null">
+        DBZDYH = #{record.dbzdyh,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dbzgyh != null">
+        DBZGYH = #{record.dbzgyh,jdbcType=DECIMAL},
+      </if>
+      <if test="record.beginDate != null">
+        BEGIN_DATE = #{record.beginDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endDate != null">
+        END_DATE = #{record.endDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.week != null">
+        WEEK = #{record.week,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginTime != null">
+        BEGIN_TIME = #{record.beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null">
+        END_TIME = #{record.endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardIdentifyType != null">
+        CARD_IDENTIFY_TYPE = #{record.cardIdentifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardAddType != null">
+        CARD_ADD_TYPE = #{record.cardAddType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUserId != null">
+        CREATE_USER_ID = #{record.createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hdzje != null">
+        HDZJE = #{record.hdzje,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mrzghdje != null">
+        MRZGHDJE = #{record.mrzghdje,jdbcType=DECIMAL},
+      </if>
+      <if test="record.usedTotal != null">
+        USED_TOTAL = #{record.usedTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cardNo != null">
+        CARD_NO = #{record.cardNo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.cardBin != null">
+        CARD_BIN = #{record.cardBin,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update py_active
+    set ID = #{record.id,jdbcType=VARCHAR},
+      ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      SHOP_ID = #{record.shopId,jdbcType=VARCHAR},
+      BONUS_ID = #{record.bonusId,jdbcType=VARCHAR},
+      BONUS_LIMIT = #{record.bonusLimit,jdbcType=DECIMAL},
+      BONUS_TYPE = #{record.bonusType,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      AD_INFO = #{record.adInfo,jdbcType=VARCHAR},
+      YHZCS = #{record.yhzcs,jdbcType=INTEGER},
+      DRZDCS = #{record.drzdcs,jdbcType=INTEGER},
+      HDYJ = #{record.hdyj,jdbcType=DECIMAL},
+      YHDJ = #{record.yhdj,jdbcType=DECIMAL},
+      DKKCYCS = #{record.dkkcycs,jdbcType=INTEGER},
+      ZDXFJE = #{record.zdxfje,jdbcType=DECIMAL},
+      ZK = #{record.zk,jdbcType=DECIMAL},
+      DBYHJE = #{record.dbyhje,jdbcType=DECIMAL},
+      DKZGYHJE = #{record.dkzgyhje,jdbcType=DECIMAL},
+      LJJE = #{record.ljje,jdbcType=DECIMAL},
+      DKHJYHXE = #{record.dkhjyhxe,jdbcType=DECIMAL},
+      DBZDYH = #{record.dbzdyh,jdbcType=DECIMAL},
+      DBZGYH = #{record.dbzgyh,jdbcType=DECIMAL},
+      BEGIN_DATE = #{record.beginDate,jdbcType=VARCHAR},
+      END_DATE = #{record.endDate,jdbcType=VARCHAR},
+      WEEK = #{record.week,jdbcType=VARCHAR},
+      BEGIN_TIME = #{record.beginTime,jdbcType=VARCHAR},
+      END_TIME = #{record.endTime,jdbcType=VARCHAR},
+      CARD_IDENTIFY_TYPE = #{record.cardIdentifyType,jdbcType=VARCHAR},
+      CARD_ADD_TYPE = #{record.cardAddType,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{record.createUserId,jdbcType=VARCHAR},
+      HDZJE = #{record.hdzje,jdbcType=DECIMAL},
+      MRZGHDJE = #{record.mrzghdje,jdbcType=DECIMAL},
+      USED_TOTAL = #{record.usedTotal,jdbcType=DECIMAL},
+      CARD_NO = #{record.cardNo,jdbcType=LONGVARCHAR},
+      CARD_BIN = #{record.cardBin,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update py_active
+    set ID = #{record.id,jdbcType=VARCHAR},
+      ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      SHOP_ID = #{record.shopId,jdbcType=VARCHAR},
+      BONUS_ID = #{record.bonusId,jdbcType=VARCHAR},
+      BONUS_LIMIT = #{record.bonusLimit,jdbcType=DECIMAL},
+      BONUS_TYPE = #{record.bonusType,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      AD_INFO = #{record.adInfo,jdbcType=VARCHAR},
+      YHZCS = #{record.yhzcs,jdbcType=INTEGER},
+      DRZDCS = #{record.drzdcs,jdbcType=INTEGER},
+      HDYJ = #{record.hdyj,jdbcType=DECIMAL},
+      YHDJ = #{record.yhdj,jdbcType=DECIMAL},
+      DKKCYCS = #{record.dkkcycs,jdbcType=INTEGER},
+      ZDXFJE = #{record.zdxfje,jdbcType=DECIMAL},
+      ZK = #{record.zk,jdbcType=DECIMAL},
+      DBYHJE = #{record.dbyhje,jdbcType=DECIMAL},
+      DKZGYHJE = #{record.dkzgyhje,jdbcType=DECIMAL},
+      LJJE = #{record.ljje,jdbcType=DECIMAL},
+      DKHJYHXE = #{record.dkhjyhxe,jdbcType=DECIMAL},
+      DBZDYH = #{record.dbzdyh,jdbcType=DECIMAL},
+      DBZGYH = #{record.dbzgyh,jdbcType=DECIMAL},
+      BEGIN_DATE = #{record.beginDate,jdbcType=VARCHAR},
+      END_DATE = #{record.endDate,jdbcType=VARCHAR},
+      WEEK = #{record.week,jdbcType=VARCHAR},
+      BEGIN_TIME = #{record.beginTime,jdbcType=VARCHAR},
+      END_TIME = #{record.endTime,jdbcType=VARCHAR},
+      CARD_IDENTIFY_TYPE = #{record.cardIdentifyType,jdbcType=VARCHAR},
+      CARD_ADD_TYPE = #{record.cardAddType,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{record.createUserId,jdbcType=VARCHAR},
+      HDZJE = #{record.hdzje,jdbcType=DECIMAL},
+      MRZGHDJE = #{record.mrzghdje,jdbcType=DECIMAL},
+      USED_TOTAL = #{record.usedTotal,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.payment.model.PyActiveWithBLOBs">
+    update py_active
+    <set>
+      <if test="orgId != null">
+        ORG_ID = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null">
+        SHOP_ID = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="bonusId != null">
+        BONUS_ID = #{bonusId,jdbcType=VARCHAR},
+      </if>
+      <if test="bonusLimit != null">
+        BONUS_LIMIT = #{bonusLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="bonusType != null">
+        BONUS_TYPE = #{bonusType,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="adInfo != null">
+        AD_INFO = #{adInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="yhzcs != null">
+        YHZCS = #{yhzcs,jdbcType=INTEGER},
+      </if>
+      <if test="drzdcs != null">
+        DRZDCS = #{drzdcs,jdbcType=INTEGER},
+      </if>
+      <if test="hdyj != null">
+        HDYJ = #{hdyj,jdbcType=DECIMAL},
+      </if>
+      <if test="yhdj != null">
+        YHDJ = #{yhdj,jdbcType=DECIMAL},
+      </if>
+      <if test="dkkcycs != null">
+        DKKCYCS = #{dkkcycs,jdbcType=INTEGER},
+      </if>
+      <if test="zdxfje != null">
+        ZDXFJE = #{zdxfje,jdbcType=DECIMAL},
+      </if>
+      <if test="zk != null">
+        ZK = #{zk,jdbcType=DECIMAL},
+      </if>
+      <if test="dbyhje != null">
+        DBYHJE = #{dbyhje,jdbcType=DECIMAL},
+      </if>
+      <if test="dkzgyhje != null">
+        DKZGYHJE = #{dkzgyhje,jdbcType=DECIMAL},
+      </if>
+      <if test="ljje != null">
+        LJJE = #{ljje,jdbcType=DECIMAL},
+      </if>
+      <if test="dkhjyhxe != null">
+        DKHJYHXE = #{dkhjyhxe,jdbcType=DECIMAL},
+      </if>
+      <if test="dbzdyh != null">
+        DBZDYH = #{dbzdyh,jdbcType=DECIMAL},
+      </if>
+      <if test="dbzgyh != null">
+        DBZGYH = #{dbzgyh,jdbcType=DECIMAL},
+      </if>
+      <if test="beginDate != null">
+        BEGIN_DATE = #{beginDate,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null">
+        END_DATE = #{endDate,jdbcType=VARCHAR},
+      </if>
+      <if test="week != null">
+        WEEK = #{week,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        BEGIN_TIME = #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cardIdentifyType != null">
+        CARD_IDENTIFY_TYPE = #{cardIdentifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="cardAddType != null">
+        CARD_ADD_TYPE = #{cardAddType,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="hdzje != null">
+        HDZJE = #{hdzje,jdbcType=DECIMAL},
+      </if>
+      <if test="mrzghdje != null">
+        MRZGHDJE = #{mrzghdje,jdbcType=DECIMAL},
+      </if>
+      <if test="usedTotal != null">
+        USED_TOTAL = #{usedTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="cardNo != null">
+        CARD_NO = #{cardNo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cardBin != null">
+        CARD_BIN = #{cardBin,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.payment.model.PyActiveWithBLOBs">
+    update py_active
+    set ORG_ID = #{orgId,jdbcType=VARCHAR},
+      SHOP_ID = #{shopId,jdbcType=VARCHAR},
+      BONUS_ID = #{bonusId,jdbcType=VARCHAR},
+      BONUS_LIMIT = #{bonusLimit,jdbcType=DECIMAL},
+      BONUS_TYPE = #{bonusType,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      AD_INFO = #{adInfo,jdbcType=VARCHAR},
+      YHZCS = #{yhzcs,jdbcType=INTEGER},
+      DRZDCS = #{drzdcs,jdbcType=INTEGER},
+      HDYJ = #{hdyj,jdbcType=DECIMAL},
+      YHDJ = #{yhdj,jdbcType=DECIMAL},
+      DKKCYCS = #{dkkcycs,jdbcType=INTEGER},
+      ZDXFJE = #{zdxfje,jdbcType=DECIMAL},
+      ZK = #{zk,jdbcType=DECIMAL},
+      DBYHJE = #{dbyhje,jdbcType=DECIMAL},
+      DKZGYHJE = #{dkzgyhje,jdbcType=DECIMAL},
+      LJJE = #{ljje,jdbcType=DECIMAL},
+      DKHJYHXE = #{dkhjyhxe,jdbcType=DECIMAL},
+      DBZDYH = #{dbzdyh,jdbcType=DECIMAL},
+      DBZGYH = #{dbzgyh,jdbcType=DECIMAL},
+      BEGIN_DATE = #{beginDate,jdbcType=VARCHAR},
+      END_DATE = #{endDate,jdbcType=VARCHAR},
+      WEEK = #{week,jdbcType=VARCHAR},
+      BEGIN_TIME = #{beginTime,jdbcType=VARCHAR},
+      END_TIME = #{endTime,jdbcType=VARCHAR},
+      CARD_IDENTIFY_TYPE = #{cardIdentifyType,jdbcType=VARCHAR},
+      CARD_ADD_TYPE = #{cardAddType,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      HDZJE = #{hdzje,jdbcType=DECIMAL},
+      MRZGHDJE = #{mrzghdje,jdbcType=DECIMAL},
+      USED_TOTAL = #{usedTotal,jdbcType=DECIMAL},
+      CARD_NO = #{cardNo,jdbcType=LONGVARCHAR},
+      CARD_BIN = #{cardBin,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.payment.model.PyActive">
+    update py_active
+    set ORG_ID = #{orgId,jdbcType=VARCHAR},
+      SHOP_ID = #{shopId,jdbcType=VARCHAR},
+      BONUS_ID = #{bonusId,jdbcType=VARCHAR},
+      BONUS_LIMIT = #{bonusLimit,jdbcType=DECIMAL},
+      BONUS_TYPE = #{bonusType,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      AD_INFO = #{adInfo,jdbcType=VARCHAR},
+      YHZCS = #{yhzcs,jdbcType=INTEGER},
+      DRZDCS = #{drzdcs,jdbcType=INTEGER},
+      HDYJ = #{hdyj,jdbcType=DECIMAL},
+      YHDJ = #{yhdj,jdbcType=DECIMAL},
+      DKKCYCS = #{dkkcycs,jdbcType=INTEGER},
+      ZDXFJE = #{zdxfje,jdbcType=DECIMAL},
+      ZK = #{zk,jdbcType=DECIMAL},
+      DBYHJE = #{dbyhje,jdbcType=DECIMAL},
+      DKZGYHJE = #{dkzgyhje,jdbcType=DECIMAL},
+      LJJE = #{ljje,jdbcType=DECIMAL},
+      DKHJYHXE = #{dkhjyhxe,jdbcType=DECIMAL},
+      DBZDYH = #{dbzdyh,jdbcType=DECIMAL},
+      DBZGYH = #{dbzgyh,jdbcType=DECIMAL},
+      BEGIN_DATE = #{beginDate,jdbcType=VARCHAR},
+      END_DATE = #{endDate,jdbcType=VARCHAR},
+      WEEK = #{week,jdbcType=VARCHAR},
+      BEGIN_TIME = #{beginTime,jdbcType=VARCHAR},
+      END_TIME = #{endTime,jdbcType=VARCHAR},
+      CARD_IDENTIFY_TYPE = #{cardIdentifyType,jdbcType=VARCHAR},
+      CARD_ADD_TYPE = #{cardAddType,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      HDZJE = #{hdzje,jdbcType=DECIMAL},
+      MRZGHDJE = #{mrzghdje,jdbcType=DECIMAL},
+      USED_TOTAL = #{usedTotal,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
